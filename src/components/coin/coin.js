@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import './coin.css';
 import PropTypes from 'prop-types';
+import Usd from '../usdBalance/Usd.js'
 
 export default class coin extends Component {
     constructor(props){
       super(props);
-      this.state = {
-        price: this.props.price
-      }
       this.handleClick = this.handleClick.bind(this);
     }
 
@@ -27,12 +25,14 @@ export default class coin extends Component {
     handleClick(event){
       event.preventDefault();
 
-      const randomperc = 0.995 + Math.random() * 0.01;
-      this.setState( function(oldState){
-        return{
-          price: oldState.price * randomperc
-        };
-      })
+      this.props.handleRefresh(this.props.ticker);
+
+      // const randomperc = 0.995 + Math.random() * 0.01;
+      // this.setState( function(oldState){
+      //   return{
+      //     price: oldState.price * randomperc
+      //   };
+      // })
     }
 
   render() {
@@ -40,7 +40,8 @@ export default class coin extends Component {
         <tr className='coin-row'>
         <td>{this.props.name}</td>
         <td>{this.props.ticker}</td>
-        <td>${this.state.price}</td>
+        <td>${this.props.price}</td>
+        <Usd usdBal={9900}/>
         <td>
           <button onClick={this.handleClick}>Refresh</button>
           </td>
