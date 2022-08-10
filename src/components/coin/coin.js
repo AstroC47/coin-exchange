@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import Usd from '../usdBalance/Usd.js'
 
 export default class coin extends Component {
-    constructor(props){
-      super(props);
-      this.handleClick = this.handleClick.bind(this);
-    }
+
 
     // componentDidMount() {
     //     const callBack = () => {
@@ -22,7 +19,7 @@ export default class coin extends Component {
     //     setInterval( callBack, 1000);
     // }
 
-    handleClick(event){
+    handleClick = (event) => {
       event.preventDefault();
 
       this.props.handleRefresh(this.props.ticker);
@@ -36,11 +33,16 @@ export default class coin extends Component {
     }
 
   render() {
+    let bal = null;
+    if (this.props.showBalance === true){
+      bal = <td>{this.props.balance}</td>
+    }
     return(
         <tr className='coin-row'>
         <td>{this.props.name}</td>
         <td>{this.props.ticker}</td>
-        <td>${this.props.price}</td>
+        <td>$ {this.props.price}</td>
+        {bal}
         <Usd usdBal={9900}/>
         <td>
           <button onClick={this.handleClick}>Refresh</button>
@@ -54,5 +56,5 @@ export default class coin extends Component {
 coin.propTypes = {
   name: PropTypes.string.isRequired,
   ticker: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired 
+  price: PropTypes.number.isRequired, 
 }
