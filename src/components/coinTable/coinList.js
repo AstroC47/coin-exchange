@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Coin from '../coin/coin.js'
 
-export default class coinList extends Component {
-  render() {
-    let HeadConBalance = this.props.showBalance ? <th>Balance</th> : null;
+export default function coinList(props) {
+
+    let HeadConBalance = props.showBalance ? <th>Balance</th> : null;
     return (
         <table className="coin-table">
         <thead>
@@ -16,15 +16,16 @@ export default class coinList extends Component {
           </tr>
         </thead>
         <tbody id="root">
-          {this.props.coindata.map( ({name,ticker,price, balance}) => 
+          {props.coindata.map( ({key,name,ticker,price,balance}) => 
           <Coin 
-          key={ticker} 
+          key={key} 
           name={name} 
           ticker={ticker} 
           price={price}
           balance={balance}
-          handleRefresh = {this.props.handleRefresh}
-          showBalance = {this.props.showBalance}
+          handleRefresh = {props.handleRefresh}
+          showBalance = {props.showBalance}
+          tickerId = {key}
           />)}
           {/* {this.state.coinData.map( value => <Coin key={value.ticker} {...value}/>)} */}
         {/* <Coin name={this.state.coinData[0].name} ticker={this.state.coinData[0].ticker} price={this.state.coinData[0].price}/>
@@ -35,5 +36,4 @@ export default class coinList extends Component {
         </tbody>
     </table>
     )
-  }
 }

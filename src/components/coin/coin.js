@@ -3,7 +3,7 @@ import './coin.css';
 import PropTypes from 'prop-types';
 import Usd from '../usdBalance/Usd.js'
 
-export default class coin extends Component {
+export default function coin(props) {
 
 
     // componentDidMount() {
@@ -19,10 +19,10 @@ export default class coin extends Component {
     //     setInterval( callBack, 1000);
     // }
 
-    handleClick = (event) => {
+    const handleClick = (event) => {
       event.preventDefault();
 
-      this.props.handleRefresh(this.props.ticker);
+      props.handleRefresh(props.tickerId);
 
       // const randomperc = 0.995 + Math.random() * 0.01;
       // this.setState( function(oldState){
@@ -32,24 +32,24 @@ export default class coin extends Component {
       // })
     }
 
-  render() {
     let bal = null;
-    if (this.props.showBalance === true){
-      bal = <td>{this.props.balance}</td>
+    if (props.showBalance === true){
+      bal = <td>{props.balance}</td>
     }
+
+
     return(
         <tr className='coin-row'>
-        <td>{this.props.name}</td>
-        <td>{this.props.ticker}</td>
-        <td>$ {this.props.price}</td>
+        <td>{props.name}</td>
+        <td>{props.ticker}</td>
+        <td>$ {props.price}</td>
         {bal}
         <Usd usdBal={9900}/>
         <td>
-          <button onClick={this.handleClick}>Refresh</button>
+          <button onClick={handleClick}>Refresh</button>
           </td>
         </tr>
       )
-  }
 }
 
 

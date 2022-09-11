@@ -8,29 +8,26 @@ const Section = styled.section`
     padding: 1.5rem 0 1.5rem 5rem 
 `
 
-export default class AccountBalance extends Component {
+export default function AccountBalance(props) {
 
-handleClick = (event) => {
+const handleClick = (event) => {
   event.preventDefault();
 
-  this.props.handleViewBalance();
+  props.handleViewBalance();
   
 }
 
-
-  render() {
-    const buttontext = this.props.showBalance ? "Hide Balance" : "Show Balance"
+    const buttontext = props.showBalance ? "Hide Balance" : "Show Balance"
     let bal = null;
-    if (this.props.showBalance === true){
-      bal = <>Balance: $ {this.props.amount}</>
+    if (props.showBalance === true){
+      bal = <>Balance: $ {props.amount}</>
     }
     return (
       <Section>
         {bal}
-        <button onClick={this.handleClick}>{buttontext}</button>
+        <button onClick={handleClick}>{buttontext}</button>
       </Section>
     )
-  }
 }
 
 AccountBalance.propTypes = {
